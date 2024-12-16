@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:foodon="http://purl.obolibrary.org/obo/foodon#"
+    xmlns:qudt="http://qudt.org/schema/qudt#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:schema="http://schema.org/"
+    xmlns:alim="http://my_food_ontology.org/AlimOntology#">
+
+    <!-- Ontology Definition -->
+    <owl:Ontology rdf:about="http://my_food_ontology.org/AlimOntology">
+        <rdfs:comment>Ontology for structuring nutritional and environmental information about food.</rdfs:comment>
+    </owl:Ontology>
+
+    <!-- Class Definitions -->
+    <owl:Class rdf:about="mfo:foodItem">
+        <rdfs:label>Food Item</rdfs:label>
+        <rdfs:comment>Represents a specific food item with its nutritional and environmental properties.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="mfo:foodGroup">
+        <rdfs:label>Food Group</rdfs:label>
+        <rdfs:comment>Represents a general food group.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="foodon:FoodMaterial"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="mfo:foodSubgroup">
+        <rdfs:label>Food Subgroup</rdfs:label>
+        <rdfs:comment>Represents a specific food subgroup. Associated properties: link to the food group.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="mfo:FoodGroup"/>
+    </owl:Class>
+
+    <!-- Property Definitions -->
+    <owl:ObjectProperty rdf:about="mfo:belongsToGroup">
+        <rdfs:label>belongs to group</rdfs:label>
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:FoodGroup"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="mfo:belongsToSubgroup">
+        <rdfs:label>belongs to subgroup</rdfs:label>
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:FoodSubgroup"/>
+    </owl:ObjectProperty>
+
+    <!-- Nutritional Properties -->
+    <owl:ObjectProperty rdf:about="mfo:containsNutrient">
+        <rdfs:label>contains nutrient</rdfs:label>
+        <rdfs:comment>Links a food item to its specific nutrients.</rdfs:comment>
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:Nutrient"/>
+    </owl:ObjectProperty>
+
+    <owl:Class rdf:about="mfo:nutrient">
+        <rdfs:label>Nutrient</rdfs:label>
+        <rdfs:comment>Represents a specific nutrient (water, proteins, carbohydrates, etc.) with its quantity.</rdfs:comment>
+    </owl:Class>
+
+    <owl:DatatypeProperty rdf:about="mfo:quantity">
+        <rdfs:label>Quantity</rdfs:label>
+        <rdfs:comment>Quantity of a nutrient in a food item (g/100 g).</rdfs:comment>
+        <rdfs:domain rdf:resource="mfo:nutrient"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
+    </owl:DatatypeProperty>
+
+    <!-- Environmental Properties -->
+    <owl:DatatypeProperty rdf:about="mfo:scoreEF">
+        <rdfs:label>Unique EF Score</rdfs:label>
+        <rdfs:comment>Unique environmental score based on several criteria (example).</rdfs:comment>
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="mfo:changementClimatique">
+        <rdfs:label>Climate Change</rdfs:label>
+        <rdfs:comment>Climate impact of the food item's production.</rdfs:comment>
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="mfo:epuisementEau">
+        <rdfs:label>Water Resource Depletion</rdfs:label>
+        <rdfs:comment>Water resource consumption for this food item.</rdfs:comment>
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
+    </owl:DatatypeProperty>
+</rdf:RDF>
