@@ -1,0 +1,31 @@
+#Here is a list of all cyqual dataset column header for easy access
+ciqual_columns = {
+    "alim_grp_code": "alim_grp_code",
+    "alim_ssgrp_code": "alim_ssgrp_code",
+    "alim_ssssgrp_code": "alim_ssssgrp_code",
+    "alim_grp_nom_fr": "alim_grp_nom_fr",
+    "alim_ssgrp_nom_fr": "alim_ssgrp_nom_fr",
+    "alim_ssssgrp_nom_fr": "alim_ssssgrp_nom_fr",
+    "alim_code": "alim_code",
+    "alim_nom_fr": "alim_nom_fr",
+	"alim_nom_sci": "alim_nom_sci",
+	"energie_kj" : "Energie, Règlement UE N° 1169/2011 (kcal/100 g)",
+    "energie_kcal" : "Energie, N x facteur Jones, avec fibres  (kJ/100 g)",	
+    "energie_g" : "Energie, N x facteur Jones, avec fibres  (kcal/100 g)",
+    "eau": "Eau (g/100 g)",
+    "proteines_facteur_jones": "Protéines, N x facteur de Jones (g/100 g)",
+	"proteines": "Protéines, N x 6.25 (g/100 g)",
+    "glucides": "Glucides (g/100 g)",
+    "lipides": "Lipides (g/100 g)",
+	"sucres": "Sucres (g/100 g)",
+	"fructose": "Fructose (g/100 g)",
+	"galactose": "Galactose (g/100 g)",
+	"glucose": "Glucose (g/100 g)",
+	"lactose": "Lactose (g/100 g)",
+	"maltose": "Maltose (g/100 g)",
+	"saccharose": "Saccharose (g/100 g)",
+	"amidon": "Amidon (g/100 g)",
+	"fibres_alimentaires": "Fibres alimentaires (g/100 g)",
+}
+	
+						
