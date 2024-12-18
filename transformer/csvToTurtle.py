@@ -62,6 +62,10 @@ def generate_turtle(input_csv_path, output_file_name):
             g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
             g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
             g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
+            g.add((food_uri, MFO["energy"], Literal((row[ciqual_columns["energie_kcal"]]))))
+            g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]))))
+            g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]))))
+            g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]))))
 
     # Serialize the RDF Graph
     g.serialize(destination=output_file_name, format="turtle")
