@@ -27,5 +27,4 @@ ciqual_columns = {
 	"amidon": "Amidon (g/100 g)",
 	"fibres_alimentaires": "Fibres alimentaires (g/100 g)",
 }
-	
 						
