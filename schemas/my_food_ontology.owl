@@ -1,12 +1,19 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/tom.dolidon/ontologies/2024/11/untitled-ontology-11/"
-     xml:base="http://www.semanticweb.org/tom.dolidon/ontologies/2024/11/untitled-ontology-11/"
+<rdf:RDF xmlns="http://my_food_ontology.org/AlimOntology#"
+     xml:base="http://my_food_ontology.org/AlimOntology"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-    <owl:Ontology rdf:about="http://my_food_ontology.org/AlimOntology"/>
+     xmlns:alim="http://my_food_ontology.org/AlimOntology#"
+     xmlns:qudt="http://qudt.org/schema/qudt#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:foodon="http://purl.obolibrary.org/obo/foodon#"
+     xmlns:schema="http://schema.org/">
+    <owl:Ontology rdf:about="http://my_food_ontology.org/AlimOntology">
+        <rdfs:comment>Ontology for structuring nutritional and environmental information about food.</rdfs:comment>
+    </owl:Ontology>
     
 
 
@@ -21,154 +28,75 @@
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#ClimateChange -->
+    <!-- mfo:belongsToGroup -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#ClimateChange">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#EnvironmentIndicators"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:comment>The most well-known indicator, representing the alteration of the climate, which affects the global ecosystem.</rdfs:comment>
-        <rdfs:label>Climate Change</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#DataQualityRating -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#DataQualityRating">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#EnvironmentIndicators"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:comment>A data quality score ranging from 1 (very good) to 5 (very poor). It is a reliability score associated with each agricultural and food product for which Agribalyse provides life cycle inventories and impact indicators. This score is calculated according to the method recommended by the European Commission and considers several criteria: temporal representativeness (TiR), technological representativeness (TeR), precision (P), and geographic specificity (GR).</rdfs:comment>
-        <rdfs:label>Data Quality Rating</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#EFSingleScore -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#EFSingleScore">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#EnvironmentIndicators"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:comment>obtained according to the PEF (Product Environmental Footprint) methodology. It is derived by aggregating the 16 impact indicators and is expressed in milli-points (mPt). The closer the EF Single Score is to zero, the lower the product&apos;s environmental footprint</rdfs:comment>
-        <rdfs:label>The EF Single Score</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#EnvironmentIndicators -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#EnvironmentIndicators">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:comment>the most exhaustive French public database of environmental indicators for agricultural and food products based on Life Cycle Analysis.</rdfs:comment>
-        <rdfs:label>Environment indicators</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#belongsToGroup -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#belongsToGroup">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#foodGroup"/>
+    <owl:ObjectProperty rdf:about="mfo:belongsToGroup">
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:FoodGroup"/>
         <rdfs:label>belongs to group</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#belongsToSubgroup -->
+    <!-- mfo:belongsToSubgroup -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#belongsToSubgroup">
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#foodSubgroup"/>
+    <owl:ObjectProperty rdf:about="mfo:belongsToSubgroup">
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:FoodSubgroup"/>
         <rdfs:label>belongs to subgroup</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#calciumQuantity -->
+    <!-- mfo:changementClimatique -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#calciumQuantity">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemical_quantity"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
+    <owl:ObjectProperty rdf:about="mfo:changementClimatique">
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#carbohydratesQuantity -->
+    <!-- mfo:containsNutrient -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#carbohydratesQuantity">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemical_quantity"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
+    <owl:ObjectProperty rdf:about="mfo:containsNutrient">
+        <rdfs:domain rdf:resource="mfo:FoodItem"/>
+        <rdfs:range rdf:resource="mfo:Nutrient"/>
+        <rdfs:comment>Links a food item to its specific nutrients.</rdfs:comment>
+        <rdfs:label>contains nutrient</rdfs:label>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#chemical_quantity -->
+    <!-- mfo:epuisementEau -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#chemical_quantity">
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:label>Chemical quantity</rdfs:label>
+    <owl:ObjectProperty rdf:about="mfo:epuisementEau">
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="mfo:epuisementEau"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#contains -->
+    <!-- mfo:quantity -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#contains">
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#chemicalEntity"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#dietaryChemicalComponent"/>
-        <rdfs:comment>Links a food item to its specific chemical entity or dietary chemical component</rdfs:comment>
-        <rdfs:label>contains</rdfs:label>
+    <owl:ObjectProperty rdf:about="mfo:quantity">
+        <rdfs:domain rdf:resource="mfo:nutrient"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#hasUnit -->
+    <!-- mfo:scoreEF -->
 
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#hasUnit">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#unit"/>
-        <rdfs:label>Has unit</rdfs:label>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#ironQuantity -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#ironQuantity">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemical_quantity"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#lipidQuantity -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#lipidQuantity">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemical_quantity"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://my_food_ontology.org/AlimOntology#proteinQuantity -->
-
-    <owl:ObjectProperty rdf:about="http://my_food_ontology.org/AlimOntology#proteinQuantity">
-        <rdfs:subPropertyOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemical_quantity"/>
-        <rdfs:domain rdf:resource="http://my_food_ontology.org/AlimOntology#foodItem"/>
-        <rdfs:range rdf:resource="http://my_food_ontology.org/AlimOntology#quantityValue"/>
+    <owl:ObjectProperty rdf:about="mfo:scoreEF">
+        <rdfs:domain rdf:resource="mfo:Aliment"/>
+        <rdfs:range rdf:resource="qudt:QuantityValue"/>
     </owl:ObjectProperty>
     
 
@@ -184,16 +112,27 @@
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#numericValue -->
+    <!-- mfo:changementClimatique -->
 
-    <owl:DatatypeProperty rdf:about="http://my_food_ontology.org/AlimOntology#numericValue">
-        <rdfs:domain>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-            </owl:Restriction>
-        </rdfs:domain>
-    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:about="mfo:changementClimatique"/>
+    
+
+
+    <!-- mfo:epuisementEau -->
+
+    <owl:DatatypeProperty rdf:about="mfo:epuisementEau"/>
+    
+
+
+    <!-- mfo:quantity -->
+
+    <owl:DatatypeProperty rdf:about="mfo:quantity"/>
+    
+
+
+    <!-- mfo:scoreEF -->
+
+    <owl:DatatypeProperty rdf:about="mfo:scoreEF"/>
     
 
 
@@ -208,77 +147,110 @@
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#atom -->
+    <!-- foodon:FoodMaterial -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#atom">
-        <rdfs:subClassOf rdf:resource="http://my_food_ontology.org/AlimOntology#chemicalEntity"/>
-        <rdfs:comment>An atom is the smallest unit of matter that retains the properties of an element.</rdfs:comment>
-        <rdfs:label>atom</rdfs:label>
-    </owl:Class>
+    <owl:Class rdf:about="foodon:FoodMaterial"/>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#chemicalEntity -->
+    <!-- mfo:Aliment -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#chemicalEntity">
-        <rdfs:comment>A chemical entity represents a general category of chemical structures, substances, and components.</rdfs:comment>
-        <rdfs:label>chemical entity</rdfs:label>
-    </owl:Class>
+    <owl:Class rdf:about="mfo:Aliment"/>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#dietaryChemicalComponent -->
+    <!-- mfo:FoodGroup -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#dietaryChemicalComponent">
-        <rdfs:comment>Dietary chemical components are substances found in food that provide nutritional value.</rdfs:comment>
-        <rdfs:label>dietary chemical component</rdfs:label>
-    </owl:Class>
+    <owl:Class rdf:about="mfo:FoodGroup"/>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#foodGroup -->
+    <!-- mfo:FoodItem -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#foodGroup">
+    <owl:Class rdf:about="mfo:FoodItem"/>
+    
+
+
+    <!-- mfo:FoodSubgroup -->
+
+    <owl:Class rdf:about="mfo:FoodSubgroup"/>
+    
+
+
+    <!-- mfo:Nutrient -->
+
+    <owl:Class rdf:about="mfo:Nutrient"/>
+    
+
+
+    <!-- mfo:foodGroup -->
+
+    <owl:Class rdf:about="mfo:foodGroup">
+        <rdfs:subClassOf rdf:resource="foodon:FoodMaterial"/>
         <rdfs:comment>Represents a general food group.</rdfs:comment>
-        <rdfs:label>food group</rdfs:label>
+        <rdfs:label>Food Group</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#foodItem -->
+    <!-- mfo:foodItem -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#foodItem">
+    <owl:Class rdf:about="mfo:foodItem">
         <rdfs:comment>Represents a specific food item with its nutritional and environmental properties.</rdfs:comment>
-        <rdfs:label>food item</rdfs:label>
+        <rdfs:label>Food Item</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#foodSubgroup -->
+    <!-- mfo:foodSubgroup -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#foodSubgroup">
-        <rdfs:subClassOf rdf:resource="http://my_food_ontology.org/AlimOntology#foodGroup"/>
+    <owl:Class rdf:about="mfo:foodSubgroup">
+        <rdfs:subClassOf rdf:resource="mfo:FoodGroup"/>
         <rdfs:comment>Represents a specific food subgroup. Associated properties: link to the food group.</rdfs:comment>
-        <rdfs:label>food subgroup</rdfs:label>
+        <rdfs:label>Food Subgroup</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#quantityValue -->
+    <!-- mfo:nutrient -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#quantityValue">
-        <rdfs:comment>A Quantity Value expresses the magnitude and kind of a quantity and is given by the product of a numerical value n and a unit of measure U. The number multiplying the unit is referred to as the numerical value of the quantity expressed in that unit.</rdfs:comment>
-        <rdfs:label>quantity value</rdfs:label>
+    <owl:Class rdf:about="mfo:nutrient">
+        <rdfs:comment>Represents a specific nutrient (water, proteins, carbohydrates, etc.) with its quantity.</rdfs:comment>
+        <rdfs:label>Nutrient</rdfs:label>
     </owl:Class>
     
 
 
-    <!-- http://my_food_ontology.org/AlimOntology#unit -->
+    <!-- qudt:QuantityValue -->
 
-    <owl:Class rdf:about="http://my_food_ontology.org/AlimOntology#unit">
-        <rdfs:comment>A unit of measure, or unit, is a particular quantity value that has been chosen as a scale for measuring other quantities the same kind (more generally of equivalent dimension). For example, the meter is a quantity of length that has been rigorously defined and standardized by the BIPM (International Board of Weights and Measures). Any measurement of the length can be expressed as a number multiplied by the unit meter.</rdfs:comment>
-        <rdfs:label>unit</rdfs:label>
-    </owl:Class>
+    <owl:Class rdf:about="qudt:QuantityValue"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="mfo:changementClimatique">
+        <rdfs:comment>Climate impact of the food item&apos;s production.</rdfs:comment>
+        <rdfs:label>Climate Change</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="mfo:epuisementEau">
+        <rdfs:comment>Water resource consumption for this food item.</rdfs:comment>
+        <rdfs:label>Water Resource Depletion</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="mfo:quantity">
+        <rdfs:comment>Quantity of a nutrient in a food item (g/100 g).</rdfs:comment>
+        <rdfs:label>Quantity</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="mfo:scoreEF">
+        <rdfs:comment>Unique environmental score based on several criteria (example).</rdfs:comment>
+        <rdfs:label>Unique EF Score</rdfs:label>
+    </rdf:Description>
 </rdf:RDF>
 
 

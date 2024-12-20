@@ -36,3 +36,185 @@
     transform: rotate(360deg);
   }
 }
+
+/* src/components/PageLayout.css */
+.page-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 2;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.query {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+/* FOOD LIST COMPONENT */
+.food-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.food-item {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.food-item:hover {
+  background-color: #eaeaea;
+  transform: scale(1.02);
+}
+
+.food-item:active {
+  background-color: #d5d5d5;
+}
+
+/* HEADER */
+
+/* src/components/Header.css */
+
+.app-header {
+  background: linear-gradient(
+    135deg,
+    #f7a5a5,
+    #f75d5d
+  ); /* Dégradé de couleurs rose */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.app-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.app-tagline {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin-top: 8px;
+  opacity: 0.9;
+}
+
+/* Ajouter des animations */
+.app-title {
+  animation: bounceIn 1.5s ease-out;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(30px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 2.5rem; /* Taille de police plus petite pour les écrans plus petits */
+  }
+
+  .app-tagline {
+    font-size: 1rem;
+  }
+}
+
+/* Container de la section de sélection */
+
+.group-select-container {
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Assure que le conteneur prenne toute la largeur disponible */
+  max-width: 400px; /* Limite la largeur maximale si nécessaire */
+  margin: 0 auto; /* Centrer le conteneur si nécessaire */
+}
+
+.group-label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.group-input {
+  width: 100%; /* Prendre toute la largeur disponible de son parent */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Pour inclure la marge interne dans la largeur de l'élément */
+}
+
+.group-input:focus {
+  border-color: #007bff; /* Change la bordure en bleu quand l'input est sélectionné */
+  outline: none;
+}
+
+datalist {
+  width: 100%; /* S'assurer que la liste des options prend toute la largeur du parent */
+}
+
+.top-foods {
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 2px solid #ddd;
+}
+
+.top-foods h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.top-foods ul {
+  list-style: none;
+  padding: 0;
+}
+
+.top-foods li {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.top-foods li strong {
+  color: #4caf50;
+}

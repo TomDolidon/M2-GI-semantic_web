@@ -11,6 +11,10 @@ FOODON = Namespace("http://purl.obolibrary.org/obo/foodon#")
 QUDT = Namespace("http://qudt.org/schema/qudt#")
 SIO = Namespace("http://semanticscience.org/resource/")
 DB = Namespace("http://dbpedia.org/resource/")
+WIKIDATA = Namespace("http://www.wikidata.org/entity/")
+OWL = Namespace("http://www.w3.org/2002/07/owl#")
+
+base_uri = "http://my_food_ontology.org/AlimOntology#"
 
 def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
     """
@@ -43,35 +47,40 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
     g.add((climateChangeUnit, RDFS.comment, Literal("Used for Climate Change", lang="en")))
 
     ####### Adding atoms and diatery chemical components
-    protein = URIRef(f"envunit_{uuid.uuid4()}")
+    protein = URIRef(f"{base_uri}atom_{uuid.uuid4()}")
     g.add((protein, RDF.type, MFO["dietaryChemicalComponent"]))
     g.add((protein, RDFS.label, Literal("Protein", lang="en")))
     g.add((protein, RDFS.comment, Literal("More than 10,000 types are found in everything from your organs to your muscles and tissues to your bones, skin, and hair. also a critical part of the processes that fuel your energy and carry oxygen throughout your body in your blood. It also helps make antibodies that fight off infections and illnesses and helps keep cells healthy and create new ones. Plus, protein helps you feel full, so it's often part of a healthy weight-loss plan")))
     g.add((protein, RDFS.seeAlso, DB.Proteins))
+    g.add((protein, OWL.sameAs, WIKIDATA.Q8054))
 
-    lipids = URIRef(f"envunit_{uuid.uuid4()}")
+    lipids = URIRef(f"{base_uri}atom_{uuid.uuid4()}")
     g.add((lipids, RDF.type, MFO["dietaryChemicalComponent"]))
     g.add((lipids, RDFS.label, Literal("Lipids", lang="en")))
     g.add((lipids, RDFS.comment, Literal("Lipids are fatty, waxy, or oily compounds that are essential to many body functions and serve as the building blocks for all living cells. Lipids help regulate hormones, transmit nerve impulses, cushion organs, and store energy in the form of body fat.", lang="en")))
     g.add((lipids, RDFS.seeAlso, DB.Lipids))
+    g.add((lipids, OWL.sameAs, WIKIDATA.Q11367))
 
-    carbohydrates = URIRef(f"envunit_{uuid.uuid4()}")
+    carbohydrates = URIRef(f"{base_uri}atom_{uuid.uuid4()}")
     g.add((carbohydrates, RDF.type, MFO["Carbohydrates"]))
     g.add((carbohydrates, RDFS.label, Literal("Carbohydrates", lang="en")))
     g.add((carbohydrates, RDFS.comment, Literal("Classified into two main categories: simple and complex. Simples are simple sugars such as glucose, fructose and sucrose, found naturally in fruits, honey and milk, as well as in processed foods and sugary drinks. Complex carbohydrates, on the other hand, are made up of longer chains of sugar molecules and include the starch found in grains, legumes and tubers.", lang="en")))
     g.add((carbohydrates, RDFS.seeAlso, DB.Carbohydrates))
+    g.add((carbohydrates, OWL.sameAs, WIKIDATA.Q11358))
 
-    calcium = URIRef(f"envunit_{uuid.uuid4()}")
+    calcium = URIRef(f"{base_uri}atom_{uuid.uuid4()}")
     g.add((calcium, RDF.type, MFO["atom"]))
     g.add((calcium, RDFS.label, Literal("Calcium", lang="en")))
     g.add((calcium, RDFS.comment, Literal("plays a key role in skeletal mineralization and structure. It is necessary for many biological functions such as muscle contraction, blood clotting, hormone release and even enzyme activatio", lang="en")))
     g.add((calcium, RDFS.seeAlso, DB.Calcium))
+    g.add((calcium, OWL.sameAs, WIKIDATA.Q706))
 
-    iron = URIRef(f"envunit_{uuid.uuid4()}")
+    iron = URIRef(f"{base_uri}atom_{uuid.uuid4()}")
     g.add((iron, RDF.type, MFO["atom"]))
     g.add((iron, RDFS.label, Literal("Iron", lang="en")))
     g.add((iron, RDFS.comment, Literal("necessary for the transport and use of oxygen by red blood cells, as well as for the functioning of certain enzymes. The balance between iron intake and loss is generally well regulated in healthy people.", lang="en")))
     g.add((iron, RDFS.seeAlso, DB.Iron))
+    g.add((iron, OWL.sameAs, WIKIDATA.Q677))
 
     ####### Adding atoms and diatery chemical components UNITS 
     mg100g = URIRef(f"envunit_{uuid.uuid4()}")
@@ -119,7 +128,9 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
             # Create Food Item
             if food_code not in food_items:
                 food_items.append(food_code)
-                food_uri = MFO[f"food_{food_code}"]
+
+                food_uri = URIRef(f"{base_uri}food_{food_code}")
+                # food_uri = URIRef(f"food_{food_code}")
                 g.add((food_uri, RDF.type, MFO["foodItem"]))
                 g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
                 g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))

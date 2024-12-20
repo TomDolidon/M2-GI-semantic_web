@@ -1,18 +1,27 @@
 // src/App.js
 import React, { useState } from "react";
 import "./App.css";
-import FoodGroupList from "./views/FoodGroupList";
-import SubgroupList from "./views/SubgroupList";
+import FoodDetails from "./views/FoodDetails";
+import FoodItemList from "./views/FoodItemList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import AtomDetails from "./views/AtomDetails";
 
 function App() {
   const [selectedGroup, setSelectedGroup] = useState(null);
 
   return (
-    <div className="App">
-      <h1>Food Ontology</h1>
-      <FoodGroupList onSelectGroup={setSelectedGroup} />
-      {selectedGroup && <SubgroupList group={selectedGroup} />}
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<FoodItemList />} />
+          <Route path="/food/:foodId" element={<FoodDetails />} />
+          <Route path="/atom/:atomId" element={<AtomDetails />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
