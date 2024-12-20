@@ -26,5 +26,7 @@ ciqual_columns = {
 	"saccharose": "Saccharose (g/100 g)",
 	"amidon": "Amidon (g/100 g)",
 	"fibres_alimentaires": "Fibres alimentaires (g/100 g)",
+    "fer": "Fer (mg/100 g)",
+    "calcium" : "Calcium (mg/100 g)"
 }
 						
