@@ -27,6 +27,7 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
 
     food_groups = {}
     food_subgroups = {}
+    food_items = []
 
     # Read the CSV File
     with open(input_csv_path, mode="r", encoding="utf-8-sig") as csvfile, open(intput_csv_path2, mode="r", encoding="utf-8-sig") as csvfile2:
@@ -59,21 +60,26 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
                 g.add((subgroup_uri, MFO["belongsToGroup"], food_groups[group_name]))
 
             # Create Food Item
-            food_uri = MFO[f"food_{food_code}"]
-            g.add((food_uri, RDF.type, MFO["foodItem"]))
-            g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
-            g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
-            g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
-            g.add((food_uri, MFO["energy"], Literal((row[ciqual_columns["energie_kcal"]]))))
-            g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]))))
-            g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]))))
-            g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]))))
+            if food_code not in food_items:
+                food_items.append(food_code)
+                food_uri = MFO[f"food_{food_code}"]
+                g.add((food_uri, RDF.type, MFO["foodItem"]))
+                g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
+                g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
+                g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
+                g.add((food_uri, MFO["energy"], Literal((row[ciqual_columns["energie_kcal"]]))))
+                g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]))))
+                g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]))))
+                g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]))))
 
         # Problème : je dois ajouter dans un aliment ses caractéristiques environnementales en les important d'un autre fichier csv
         
         for row in reader2:
             food_code = row[agribalise_columns["code_ciqual"]]
             food_uri = MFO[f"food_{food_code}"]
+            if food_code not in food_items:
+                g.add((food_uri, RDF.type, MFO["foodItem"]))
+                print("welcome "+ food_code)
             g.add((food_uri, MFO["dqr"], Literal(row[agribalise_columns["dqr"]], lang="fr")))
             g.add((food_uri, MFO["score_unique_ef"], Literal(row[agribalise_columns["score_unique_ef"]], lang="fr")))
             g.add((food_uri, MFO["changement_climatique"], Literal(row[agribalise_columns["changement_climatique"]], lang="fr")))
