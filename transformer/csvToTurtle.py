@@ -68,9 +68,9 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
                 g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
                 g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
                 g.add((food_uri, MFO["energy"], Literal((row[ciqual_columns["energie_kcal"]]))))
-                g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]))))
-                g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]))))
-                g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]))))
+                g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]), datatype=XSD.float)))
+                g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]), datatype=XSD.float)))
+                g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]), datatype=XSD.float)))
 
         # Problème : je dois ajouter dans un aliment ses caractéristiques environnementales en les important d'un autre fichier csv
         
@@ -79,10 +79,10 @@ def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
             food_uri = MFO[f"food_{food_code}"]
             if food_code not in food_items:
                 g.add((food_uri, RDF.type, MFO["foodItem"]))
-                print("welcome "+ food_code)
-            g.add((food_uri, MFO["dqr"], Literal(row[agribalise_columns["dqr"]], lang="fr")))
-            g.add((food_uri, MFO["score_unique_ef"], Literal(row[agribalise_columns["score_unique_ef"]], lang="fr")))
-            g.add((food_uri, MFO["changement_climatique"], Literal(row[agribalise_columns["changement_climatique"]], lang="fr")))
+                g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
+            g.add((food_uri, MFO["dqr"], Literal(float(row[agribalise_columns["dqr"]]), datatype=XSD.float)))
+            g.add((food_uri, MFO["score_unique_ef"], Literal(float(row[agribalise_columns["score_unique_ef"]]), datatype=XSD.float)))
+            g.add((food_uri, MFO["changement_climatique"], Literal(float(row[agribalise_columns["changement_climatique"]]), datatype=XSD.float)))
 
 
     # Serialize the RDF Graph
