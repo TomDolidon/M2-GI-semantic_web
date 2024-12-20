@@ -51,4 +51,35 @@ const getSubgroups = (group) => {
   return sparqlQuery(query);
 };
 
-export { getFoodGroups, getSubgroups };
+const getFood = (subgroup) => {
+  const query = `
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX mfo: <http://my_food_ontology.org/AlimOntology#>
+
+    SELECT ?foodItem ?label ?energy WHERE {       
+      ?foodItem a mfo:foodItem .
+      ?foodItem mfo:belongsToSubgroup <${subgroup}> .
+      ?foodItem rdfs:label ?label .
+      ?foodItem mfo:energy ?energy
+    }
+  `;
+  return sparqlQuery(query);
+};
+
+export { getFoodGroups, getSubgroups, getFood };
+
+
+/*
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX md: <http://www.w3.org/ns/md#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>     
+PREFIX mfo: <http://my_food_ontology.org/AlimOntology#>      
+SELECT ?foodItem ?label ?energy ?protein ?fat ?carbohydrate WHERE {       
+  ?foodItem a mfo:foodItem .       
+  ?foodItem rdfs:label ?label .
+  ?foodItem mfo:energy ?energy .
+  ?foodItem mfo:protein ?protein .
+  ?foodItem mfo:fat ?fat .
+  ?foodItem mfo:carbohydrate ?carbohydrate
+}
+*/

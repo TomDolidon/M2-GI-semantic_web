@@ -3,6 +3,7 @@ import uuid
 from rdflib import Graph, Namespace, URIRef, Literal
 from rdflib.namespace import RDF, RDFS, XSD
 from ciqual_columns_config import ciqual_columns
+from agribalise_column_config import agribalise_columns
 
 # Namespaces
 MFO = Namespace("http://my_food_ontology.org/AlimOntology#")
@@ -10,7 +11,7 @@ FOODON = Namespace("http://purl.obolibrary.org/obo/foodon#")
 QUDT = Namespace("http://qudt.org/schema/qudt#")
 SIO = Namespace("http://semanticscience.org/resource/")
 
-def generate_turtle(input_csv_path, output_file_name):
+def generate_turtle(input_csv_path, intput_csv_path2, output_file_name):
     """
     Generates a Turtle file from a CSV file, including food items, groups, subgroups, and their relations.
 
@@ -26,10 +27,12 @@ def generate_turtle(input_csv_path, output_file_name):
 
     food_groups = {}
     food_subgroups = {}
+    food_items = []
 
     # Read the CSV File
-    with open(input_csv_path, mode="r", encoding="utf-8-sig") as csvfile:
+    with open(input_csv_path, mode="r", encoding="utf-8-sig") as csvfile, open(intput_csv_path2, mode="r", encoding="utf-8-sig") as csvfile2:
         reader = csv.DictReader(csvfile, delimiter=";")
+        reader2 = csv.DictReader(csvfile2, delimiter=",")
 
         for row in reader:
             group_name = row[ciqual_columns["alim_grp_nom_fr"]]
@@ -57,11 +60,30 @@ def generate_turtle(input_csv_path, output_file_name):
                 g.add((subgroup_uri, MFO["belongsToGroup"], food_groups[group_name]))
 
             # Create Food Item
+            if food_code not in food_items:
+                food_items.append(food_code)
+                food_uri = MFO[f"food_{food_code}"]
+                g.add((food_uri, RDF.type, MFO["foodItem"]))
+                g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
+                g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
+                g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
+                g.add((food_uri, MFO["energy"], Literal((row[ciqual_columns["energie_kcal"]]))))
+                g.add((food_uri, MFO["protein"], Literal((row[ciqual_columns["proteines"]]), datatype=XSD.float)))
+                g.add((food_uri, MFO["carbohydrate"], Literal((row[ciqual_columns["glucides"]]), datatype=XSD.float)))
+                g.add((food_uri, MFO["fat"], Literal((row[ciqual_columns["lipides"]]), datatype=XSD.float)))
+
+        # Problème : je dois ajouter dans un aliment ses caractéristiques environnementales en les important d'un autre fichier csv
+        
+        for row in reader2:
+            food_code = row[agribalise_columns["code_ciqual"]]
             food_uri = MFO[f"food_{food_code}"]
-            g.add((food_uri, RDF.type, MFO["foodItem"]))
-            g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
-            g.add((food_uri, MFO["belongsToGroup"], food_groups[group_name]))
-            g.add((food_uri, MFO["belongsToSubgroup"], food_subgroups[subgroup_name]))
+            if food_code not in food_items:
+                g.add((food_uri, RDF.type, MFO["foodItem"]))
+                g.add((food_uri, RDFS.label, Literal(food_name, lang="fr")))
+            g.add((food_uri, MFO["dqr"], Literal(float(row[agribalise_columns["dqr"]]), datatype=XSD.float)))
+            g.add((food_uri, MFO["score_unique_ef"], Literal(float(row[agribalise_columns["score_unique_ef"]]), datatype=XSD.float)))
+            g.add((food_uri, MFO["changement_climatique"], Literal(float(row[agribalise_columns["changement_climatique"]]), datatype=XSD.float)))
+
 
     # Serialize the RDF Graph
     g.serialize(destination=output_file_name, format="turtle")
@@ -77,7 +99,8 @@ def parse_float(value):
 if __name__ == "__main__":
     try:
         input_csv = "../data/datasets/ciqual_2020.csv"
+        input_csv2 = "../data/datasets/synthese_agribalise.csv"
         output_ttl = "../data/turtle/ciqual_2020.ttl"
-        generate_turtle(input_csv, output_ttl)
+        generate_turtle(input_csv, input_csv2, output_ttl)
     except Exception as e:
         print(f"Error: {e}")
